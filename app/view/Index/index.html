@@ -1,0 +1,103 @@
+{include file="public/header"}
+<div class="header">
+    <span class="title"><span style="font-size: 20px;">{if $title}{$title}{/if}</span>--后台管理系统</span>
+    <span class="userinfo">【{if $login}{$login}{/if}】<span><a href="javascript:;">退出</a></span></span>
+</div>
+<div class="menu" id="menu">
+    <div class="layui-collapse" lay-accordion>
+        {foreach $left as $k=>$v}
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title">{$v['title']}</h2>
+            <div class="layui-colla-content {if $k == 0}layui-show{/if}">
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    {foreach $v['lists'] as $vv}
+                    <li class="layui-nav-item"><a href="list.html">{$vv['title']}</a></li>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+</div>
+<div class="main" style="padding:10px;">
+    <div class="content">
+        <span>商品列表</span>
+        <td><button class="layui-btn layui-btn-xs" onclick="add()">添加</button></td>
+        <div></div>
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>商品标题</th>
+            <th>分类</th>
+            <th>原价</th>
+            <th>现价</th>
+            <th>状态</th>
+            <th>添加时间</th>
+            <th>操作</th>
+            <th>删除</th>
+        </tr>
+        </thead>
+        <tbody>
+            {volist name="right" id="rr"}
+        <tr>
+            <td>{$rr['id']}</td>
+            <td>{$rr['title']}</td>
+            <td>{$rr['cat']}</td>
+            <td>{$rr['price']}</td>
+            <td>
+                {if $rr['discount']!=0}
+                    {$rr['price']*($rr['discount']/10)}
+                {else /}
+                    {$rr['price']}{/if}
+            </td>
+            <td>{if $rr['status']==1}开启{elseif $rr['status']==0/}关闭{/if}</td>
+            <td>{$rr['add_time']|date='Y-m-d H:i:s'}</td>
+            <td><button class="layui-btn layui-btn-xs" onclick="edit({$rr.id})">编辑</button></td>
+            <td><button class="layui-btn layui-btn-xs" onclick="del({$rr.id})">删除</button></td>
+        </tr>
+            {/volist}
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function add(){
+        layer.open({
+            type: 2,
+            title: '添加',
+            shade: 0.3,
+            area: ['480px', '440px'],
+            content: '/index/add'
+        });
+    }
+</script>
+<script type="text/javascript">
+    function edit(id){
+        layer.open({
+            type: 2,
+            title: '修改',
+            shade: 0.3,
+            area: ['480px', '440px'],
+            content: '/index/edit?id='+id
+        });
+    }
+</script>
+<script type="text/javascript">
+    function del(id){
+        layer.confirm('确定要删除吗？', {
+            icon:3,
+            btn: ['确定','取消']
+        }, function(){
+            $.post('/index/del',{'id':id},function(res){
+                if(res.code>0){
+                    layer.alert(res.msg,{icon:2});
+                }else{
+                    layer.msg(res.msg);
+                    setTimeout(function(){window.location.reload();},1000);
+                }
+            },'json');
+        });
+    }
+</script>
+{include file="public/tail"}
