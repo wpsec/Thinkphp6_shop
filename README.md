@@ -22,8 +22,6 @@ ThinkPHP 6.0
 ## 一个基于TP6的 单应用 学习项目 笔记
 
 
-
-
 ## 一. 下载资源文件
 使用 layui ，下载并放 public 下资源目录下
 
@@ -1049,16 +1047,16 @@ duplicate |	用于设置DUPLCATE信息 	|数组 字符串
 
 |表达式| 含义 | 方法 |
 |--|--|--|
-= 	|等于 	|
-<> 	|不等于 |	
-> 	|大于 	|
->= 	|大于等于| 	
-< 	|小于 	|
-<= 	|小于等于| 	
-[NOT] LIKE 	|模糊查询 	|whereLike/whereNotLike
-[NOT] BETWEEN| 	（不在）区间查询 	|whereBetween/whereNotBetween
-[NOT] IN 	|（不在）IN 查询 	|whereIn/whereNotIn
-[NOT] NULL 	|查询字段是否（不）是NULL 	|whereNull/whereNotNull
+|= 	|等于 	|
+|<> 	|不等于 |	
+|> 	|大于 	|
+|>= 	|大于等于| 	
+|< 	|小于 	|
+|<= 	|小于等于| 	
+|[NOT] LIKE 	|模糊查询 	| whereLike/whereNotLike|
+|[NOT] BETWEEN| 	（不在）区间查询 	| whereBetween/whereNotBetween|
+|[NOT] IN 	|（不在）IN 查询 	| whereIn/whereNotIn|
+|[NOT] NULL 	|查询字段是否（不）是NULL 	| whereNull/whereNotNull|
 #### whire 链式
 
 ```php
